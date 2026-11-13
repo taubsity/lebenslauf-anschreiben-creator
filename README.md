@@ -9,16 +9,18 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/OemerErguen/lebenslauf-anschreiben-creator/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/OemerErguen/lebenslauf-anschreiben-creator/ci.yml?branch=main&style=flat-square&label=CI" alt="CI" /></a>
-  <a href="https://github.com/OemerErguen/lebenslauf-anschreiben-creator/actions/workflows/deploy.yml"><img src="https://img.shields.io/github/actions/workflow/status/OemerErguen/lebenslauf-anschreiben-creator/deploy.yml?branch=main&style=flat-square&label=Deploy" alt="Deploy" /></a>
+  <a href="https://github.com/taubsity/lebenslauf-anschreiben-creator/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/OemerErguen/lebenslauf-anschreiben-creator/ci.yml?branch=custom&style=flat-square&label=CI" alt="CI" /></a>
+  <a href="https://github.com/taubsity/lebenslauf-anschreiben-creator/actions/workflows/deploy.yml"><img src="https://img.shields.io/github/actions/workflow/status/OemerErguen/lebenslauf-anschreiben-creator/deploy.yml?branch=custom&style=flat-square&label=Deploy" alt="Deploy" /></a>
   <a href="https://github.com/OemerErguen/lebenslauf-anschreiben-creator/blob/main/LICENSE"><img src="https://img.shields.io/github/license/OemerErguen/lebenslauf-anschreiben-creator?style=flat-square" alt="License" /></a>
   <img src="https://img.shields.io/badge/node-%3E%3D22-brightgreen?style=flat-square" alt="Node >= 22" />
   <img src="https://img.shields.io/badge/pnpm-%3E%3D10-f69220?style=flat-square" alt="pnpm >= 10" />
 </p>
 
 <p align="center">
-  <a href="https://oemererguen.github.io/lebenslauf-anschreiben-creator/">Live Demo</a> · <a href="docs/architecture.md">Architecture</a> · <a href="docs/contributing.md">Contributing</a>
+  <a href="https://taubsity.github.io/lebenslauf-anschreiben-creator/">Live Demo</a> · <a href="docs/architecture.md">Architecture</a> · <a href="docs/contributing.md">Contributing</a>
 </p>
+
+> Fork of [OemerErguen/lebenslauf-anschreiben-creator](https://github.com/OemerErguen/lebenslauf-anschreiben-creator) — thanks to [Ömer Ergün](https://github.com/OemerErguen) for creating it. For the original, use the upstream repo.
 
 ---
 
@@ -54,7 +56,7 @@ Your data belongs to you. This tool simply helps you format it.
 
 No installation needed — just open the app in your browser:
 
-**[https://oemererguen.github.io/lebenslauf-anschreiben-creator/](https://oemererguen.github.io/lebenslauf-anschreiben-creator/)**
+**[https://taubsity.github.io/lebenslauf-anschreiben-creator/](https://taubsity.github.io/lebenslauf-anschreiben-creator/)**
 
 Everything runs client-side. Your data stays in your browser.
 
@@ -63,7 +65,7 @@ Everything runs client-side. Your data stays in your browser.
 If you want to develop or self-host:
 
 ```bash
-git clone https://github.com/OemerErguen/lebenslauf-anschreiben-creator.git
+git clone https://github.com/taubsity/lebenslauf-anschreiben-creator.git
 cd lebenslauf-anschreiben-creator
 pnpm install
 pnpm dev
@@ -119,25 +121,13 @@ Contributions are welcome and encouraged! Whether it's a bug fix, new feature, t
 
 See the [Contributing Guide](docs/contributing.md) to get started.
 
-## Support the Project
+## Support
 
-This project is and always will be **free and open-source**. If you find it useful and want to support ongoing development, consider buying me a coffee.
-
-<p align="center">
-  <a href="https://buymeacoffee.com/4zdjzsf6r7p">
-    <img src="https://img.shields.io/badge/Buy%20Me%20a%20Coffee-support-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black" alt="Buy Me a Coffee" />
-  </a>
-</p>
-
-<p align="center">
-  <a href="https://buymeacoffee.com/4zdjzsf6r7p">
-    <img src="docs/assets/bmc_qr.png" alt="Buy Me a Coffee QR Code" width="200" />
-  </a>
-</p>
+Please support the original author, who made this project possible:
+[Buy Me a Coffee](https://buymeacoffee.com/4zdjzsf6r7p).
 
 ---
 
 <p align="center">
-  Made with care by <a href="https://github.com/OemerErguen">Ömer Ergün</a><br/>
-  <sub>Essential tools should be free. Let's build them together.</sub>
+  <sub>Original by <a href="https://github.com/OemerErguen">Ömer Ergün</a> · Fork maintained by <a href="https://github.com/taubsity">taubsity</a></sub>
 </p>
