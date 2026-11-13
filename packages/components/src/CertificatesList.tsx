@@ -1,4 +1,5 @@
 import type { ComponentRenderProps } from '@cv/layout-engine';
+import { EntryUrl } from './EntryUrl.js';
 import { formatIsoDate } from './format.js';
 import { getLabel } from './labels.js';
 import { optStr } from './optionUtils.js';
@@ -27,7 +28,13 @@ export function CertificatesList({ resume, locale, tokens, slot }: ComponentRend
             <div className="cv-entry-date">{formatIsoDate(c.date, locale)}</div>
             <div className="cv-entry-head">
               <div className="cv-entry-title">{c.name}</div>
-              {c.issuer && <div className="cv-entry-org">{c.issuer}</div>}
+              {(c.issuer || c.url) && (
+                <div className="cv-entry-org">
+                  {c.issuer}
+                  {c.issuer && c.url && ' · '}
+                  <EntryUrl url={c.url} />
+                </div>
+              )}
             </div>
           </article>
         ))
@@ -38,7 +45,9 @@ export function CertificatesList({ resume, locale, tokens, slot }: ComponentRend
               <div className="cv-cert-sidebar-name">{c.name}</div>
               <div className="cv-cert-sidebar-meta">
                 {c.issuer && <span>{c.issuer}</span>}
-                {c.issuer && c.date && <span> · </span>}
+                {c.issuer && c.url && <span> · </span>}
+                <EntryUrl url={c.url} />
+                {(c.issuer || c.url) && c.date && <span> · </span>}
                 {c.date && <span>{formatIsoDate(c.date, locale)}</span>}
               </div>
             </div>
