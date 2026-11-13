@@ -7,7 +7,7 @@ test('editor boots and preview iframe paginates the sample CV', async ({ page })
   await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
 
   // The preview iframe is mounted.
-  const iframe = page.frameLocator('iframe[title="CV preview"]');
+  const iframe = page.frameLocator('iframe[title="CV render"]');
 
   // Paged.js has paginated the template (at least one .pagedjs_page present).
   await expect(iframe.locator('.pagedjs_page').first()).toBeVisible({ timeout: 15_000 });
@@ -16,5 +16,5 @@ test('editor boots and preview iframe paginates the sample CV', async ({ page })
   await expect(iframe.locator('.cv-name', { hasText: 'Alex Muster' })).toBeVisible();
 
   // The sidebar rendered (proves template stylesheet loaded inside iframe).
-  await expect(iframe.locator('.cv-sidebar')).toBeVisible();
+  await expect(iframe.locator('.cv-slot-sidebar')).toBeVisible();
 });
