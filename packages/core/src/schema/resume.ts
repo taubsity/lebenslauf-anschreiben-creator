@@ -169,6 +169,9 @@ export const certificateSchema = z.object({
 export type Certificate = z.infer<typeof certificateSchema>;
 
 export const authorshipSchema = z.enum(['first', 'shared_first', 'second', 'co', 'last']);
+/**
+ *
+ */
 export type Authorship = z.infer<typeof authorshipSchema>;
 
 export const publicationSchema = z.object({
