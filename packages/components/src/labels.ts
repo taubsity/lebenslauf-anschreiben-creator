@@ -35,6 +35,11 @@ export const labels = {
     fluency_c1: 'Verhandlungssicher',
     fluency_c2: 'Annähernd muttersprachlich',
     fluency_native: 'Muttersprache',
+    authorship_first: 'Erstautorschaft',
+    authorship_shared_first: 'Geteilte Erstautorschaft',
+    authorship_second: 'Zweitautorschaft',
+    authorship_co: 'Koautorschaft',
+    authorship_last: 'Letztautorschaft',
   },
   en: {
     personal: 'Personal Details',
@@ -70,6 +75,11 @@ export const labels = {
     fluency_c1: 'Advanced',
     fluency_c2: 'Near-Native',
     fluency_native: 'Native',
+    authorship_first: 'First author',
+    authorship_shared_first: 'Shared first author',
+    authorship_second: 'Second author',
+    authorship_co: 'Co-author',
+    authorship_last: 'Last author',
   },
 } as const satisfies Record<Locale, Record<string, string>>;
 

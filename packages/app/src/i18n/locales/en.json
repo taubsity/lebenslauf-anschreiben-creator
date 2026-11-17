@@ -136,6 +136,15 @@
     "publisher": "Publisher",
     "releaseDate": "Publication date",
     "url": "URL",
+    "authorship": "Authorship",
+    "authorship_none": "Not specified",
+    "authorship_first": "First author",
+    "authorship_shared_first": "Shared first author",
+    "authorship_second": "Second author",
+    "authorship_co": "Co-author",
+    "authorship_last": "Last author",
+    "authorshipDisplay_inline": "As text",
+    "authorshipDisplay_marker": "As symbol",
     "summary": "Description"
   },
   "interests": {

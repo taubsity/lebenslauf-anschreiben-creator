@@ -136,6 +136,15 @@
     "publisher": "Verlag",
     "releaseDate": "Erscheinungsdatum",
     "url": "URL",
+    "authorship": "Autorschaft",
+    "authorship_none": "Keine Angabe",
+    "authorship_first": "Erstautorschaft",
+    "authorship_shared_first": "Geteilte Erstautorschaft",
+    "authorship_second": "Zweitautorschaft",
+    "authorship_co": "Koautorschaft",
+    "authorship_last": "Letztautorschaft",
+    "authorshipDisplay_inline": "Als Text",
+    "authorshipDisplay_marker": "Als Symbol",
     "summary": "Beschreibung"
   },
   "interests": {
