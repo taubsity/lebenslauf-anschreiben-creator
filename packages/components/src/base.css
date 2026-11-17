@@ -672,6 +672,22 @@ a.cv-contact-link {
   color: var(--cv-muted);
 }
 
+/* --- Publication authorship --- */
+.cv-authorship-marker {
+  color: var(--cv-primary);
+  font-weight: 600;
+}
+sup.cv-authorship-marker {
+  margin-left: 0.3mm;
+  font-size: 0.75em;
+  line-height: 0;
+}
+.cv-authorship-legend {
+  margin: 0 0 1mm 0;
+  font-size: 8.5pt;
+  color: var(--cv-muted);
+}
+
 /* --- Entry keyword tags (Projects) --- */
 .cv-entry-keywords {
   grid-column: 2;

@@ -167,8 +167,10 @@ const componentDefinitions: ComponentDefinition[] = [
     name: { de: 'Publikationen', en: 'Publications' },
     dataFields: ['publications'],
     allowedSlots: ['main', 'sidebar', 'aside'],
-    optionsSchema: z.object({}),
-    defaultOptions: {},
+    optionsSchema: z.object({
+      authorshipDisplay: z.enum(['inline', 'marker']).default('inline'),
+    }),
+    defaultOptions: { authorshipDisplay: 'inline' },
     render: PublicationsList,
   },
   {
