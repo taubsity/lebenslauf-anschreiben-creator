@@ -40,6 +40,7 @@ export const labels = {
     authorship_second: 'Zweitautorschaft',
     authorship_co: 'Koautorschaft',
     authorship_last: 'Letztautorschaft',
+    grade: 'Note',
   },
   en: {
     personal: 'Personal Details',
@@ -80,6 +81,7 @@ export const labels = {
     authorship_second: 'Second author',
     authorship_co: 'Co-author',
     authorship_last: 'Last author',
+    grade: 'Grade',
   },
 } as const satisfies Record<Locale, Record<string, string>>;
 
