@@ -125,9 +125,12 @@ export const topHeaderDesign = defineDesign({
   display: grid;
   grid-template-columns: 70mm 1fr;
   grid-template-rows: auto 1fr;
+  background: linear-gradient(to right, var(--cv-sidebar-bg) 70mm, var(--cv-background) 70mm);
 }
 .cv-slot-header {
+  grid-row: 1;
   grid-column: 1 / -1;
+  background: var(--cv-background);
   padding: 12mm 14mm 8mm;
   display: flex;
   flex-wrap: wrap;
@@ -136,6 +139,8 @@ export const topHeaderDesign = defineDesign({
   border-bottom: 0.5pt solid var(--cv-border);
 }
 .cv-slot-sidebar {
+  grid-row: 2;
+  grid-column: 1;
   background: var(--cv-sidebar-bg);
   padding: 10mm 10mm;
   display: flex;
@@ -143,9 +148,15 @@ export const topHeaderDesign = defineDesign({
   gap: var(--cv-spacing-gap);
 }
 .cv-slot-main {
+  grid-row: 2;
+  grid-column: 2;
   padding: 10mm 12mm;
   display: flex;
   flex-direction: column;
   gap: var(--cv-spacing-gap);
+}
+.cv-slot-sidebar[data-split-from],
+.cv-slot-main[data-split-from] {
+  padding-top: 10mm !important;
 }`,
 });

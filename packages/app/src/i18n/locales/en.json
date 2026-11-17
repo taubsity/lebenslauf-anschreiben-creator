@@ -242,7 +242,9 @@
     "zoomOut": "Zoom out",
     "zoomReset": "Reset zoom",
     "showPreview": "Show preview",
-    "showEditor": "Show editor"
+    "showEditor": "Show editor",
+    "sidebarOverflow": "Sidebar too long",
+    "sidebarOverflowHint": "The sidebar does not fit on page 1, which pushes the main column to the next page. Move a section to the main column or shorten the sidebar."
   },
   "designer": {
     "colors": "Colors",

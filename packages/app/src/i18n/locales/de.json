@@ -242,7 +242,9 @@
     "zoomOut": "Verkleinern",
     "zoomReset": "Zoom zurücksetzen",
     "showPreview": "Vorschau anzeigen",
-    "showEditor": "Editor anzeigen"
+    "showEditor": "Editor anzeigen",
+    "sidebarOverflow": "Seitenleiste zu lang",
+    "sidebarOverflowHint": "Die Seitenleiste passt nicht auf Seite 1. Dadurch rutscht der Hauptbereich auf die nächste Seite. Verschiebe einen Abschnitt in den Hauptbereich oder kürze die Seitenleiste."
   },
   "designer": {
     "colors": "Farben",

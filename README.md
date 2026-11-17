@@ -46,7 +46,7 @@ Your data belongs to you. This tool simply helps you format it.
 - **Multiple layouts** — Sidebar left/right, full-width, top-header
 - **Design presets** — Classic, modern, minimal — or fully customize colors, fonts, spacing
 - **Live preview** — See changes instantly as you type
-- **PDF export** — Print-ready PDF via Paged.js, pixel-perfect pagination
+- **PDF export** — Print-ready PDF via Paged.js, pixel-perfect pagination — **Chrome only**; use "Save as PDF" (not a physical printer) as the destination
 - **Cover letter builder** — Sender/recipient, salutation, paragraphs, signature (upload or draw)
 - **Bilingual UI** — German and English interface
 - **100% client-side** — Static site hosted on GitHub Pages, no server required
@@ -59,6 +59,10 @@ No installation needed — just open the app in your browser:
 **[https://taubsity.github.io/lebenslauf-anschreiben-creator/](https://taubsity.github.io/lebenslauf-anschreiben-creator/)**
 
 Everything runs client-side. Your data stays in your browser.
+
+> **Chrome only.** The PDF rendering relies on Paged.js, which requires Chrome (or Chromium). Other browsers are not supported.
+>
+> When saving the PDF, choose **"Save as PDF"** (not a physical printer) as the destination in the print dialog — this preserves the layout correctly.
 
 ## Run It Locally
 

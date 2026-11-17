@@ -49,6 +49,7 @@ export interface PagedPreviewInput {
 export interface PagedPreviewResult {
   hostRef: RefObject<HTMLDivElement | null>;
   pageCount: number;
+  sidebarOverflow: boolean;
   generating: boolean;
 }
 
@@ -65,6 +66,7 @@ export function usePagedPreview(input: PagedPreviewInput): PagedPreviewResult {
   const seqRef = useRef(0);
 
   const [pageCount, setPageCount] = useState(0);
+  const [sidebarOverflow, setSidebarOverflow] = useState(false);
   const [generating, setGenerating] = useState(false);
 
   // Renderer lifecycle
@@ -136,6 +138,7 @@ export function usePagedPreview(input: PagedPreviewInput): PagedPreviewResult {
 
           if (seq !== seqRef.current) return;
           setPageCount(result.pageCount);
+          setSidebarOverflow(result.sidebarOverflow);
         } catch (err) {
           console.error('[usePagedPreview] render failed:', err);
         } finally {
@@ -149,5 +152,5 @@ export function usePagedPreview(input: PagedPreviewInput): PagedPreviewResult {
     };
   }, [resume, coverLetter, design, overrides, locale, documentType]);
 
-  return { hostRef, pageCount, generating };
+  return { hostRef, pageCount, sidebarOverflow, generating };
 }
