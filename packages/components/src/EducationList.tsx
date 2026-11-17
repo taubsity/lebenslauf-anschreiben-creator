@@ -23,7 +23,7 @@ export function EducationList({ resume, locale, tokens }: ComponentRenderProps) 
         </div>
         <div className="cv-entry-org">
           {e.institution}
-          {e.score ? ` · ${e.score}` : ''}
+          {e.score ? ` · ${getLabel(locale, 'grade')}: ${e.score}` : ''}
         </div>
       </div>
       {e.description && (
