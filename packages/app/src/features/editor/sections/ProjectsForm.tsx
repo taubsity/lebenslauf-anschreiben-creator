@@ -5,6 +5,7 @@ import { Field } from '../../../ui/Field.js';
 import { ListFormHeader } from '../../../ui/ListFormHeader.js';
 import { ListItemCard } from '../../../ui/ListItemCard.js';
 import { RichTextField } from '../../../ui/RichTextField.js';
+import { SortableList } from '../../../ui/SortableList.js';
 import { TagInput } from '../../../ui/TagInput.js';
 import { generateId } from '../../../utils/generateId.js';
 import { SECTION_BY_ID } from '../sectionConfig.js';
@@ -28,16 +29,17 @@ const summarize = sectionDef?.summarize ?? (() => '');
 export function ProjectsForm(props: SlotFormProps) {
   void props;
   const { t } = useTranslation();
-  const { items, add, remove, patch } = useListSection<Project>('projects', emptyProject);
+  const { items, add, remove, patch, reorder } = useListSection<Project>('projects', emptyProject);
 
   return (
     <div className="flex flex-col gap-3">
       <ListFormHeader count={items.length} onAdd={add} />
 
-      <div className="flex flex-col">
-        {items.map((p) => (
+      <SortableList items={items} onReorder={reorder} className="flex flex-col">
+        {(p) => (
           <ListItemCard
             key={p.id}
+            id={p.id}
             summary={summarize(p as unknown as Record<string, unknown>, t)}
             defaultOpen={!p.name}
             onRemove={() => {
@@ -101,8 +103,8 @@ export function ProjectsForm(props: SlotFormProps) {
               </div>
             </div>
           </ListItemCard>
-        ))}
-      </div>
+        )}
+      </SortableList>
     </div>
   );
 }

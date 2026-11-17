@@ -3,8 +3,11 @@ import type { Skill, SkillChild } from '@cv/core';
 import { useTranslation } from 'react-i18next';
 import { useResumeStore } from '../../../state/resumeStore.js';
 import { Button } from '../../../ui/Button.js';
+import { DragHandle } from '../../../ui/DragHandle.js';
 import { Field } from '../../../ui/Field.js';
 import { LevelInput } from '../../../ui/LevelInput.js';
+import { SortableItem } from '../../../ui/SortableItem.js';
+import { SortableList } from '../../../ui/SortableList.js';
 import { ToggleGroup } from '../../../ui/ToggleGroup.js';
 import { generateId } from '../../../utils/generateId.js';
 import { useSlotComponentOption } from '../useSlotComponentOption.js';
@@ -133,14 +136,16 @@ export function SkillsForm({ slotName, componentId }: SlotFormProps) {
         </div>
       )}
 
-      <div className="flex flex-col gap-3">
-        {resume.skills.map((skill) =>
+      <SortableList items={resume.skills} onReorder={updateSkills} className="flex flex-col gap-3">
+        {(skill) =>
           isGroup(skill) ? (
-            <div
+            <SortableItem
               key={skill.id}
+              id={skill.id}
               className="flex flex-col gap-2 rounded-md border border-slate-200 bg-slate-50/50 p-3"
             >
               <div className="flex items-end gap-2">
+                <DragHandle className="mb-2" />
                 <div className="flex-1">
                   <Field
                     label={t('skills.groupName')}
@@ -163,38 +168,47 @@ export function SkillsForm({ slotName, componentId }: SlotFormProps) {
               </div>
 
               <div className="flex flex-col gap-1.5 border-l-2 border-slate-200 pl-3">
-                {skill.children.map((child) => (
-                  <div key={child.id} className="flex items-center gap-2">
-                    <input
-                      type="text"
-                      value={child.name}
-                      onChange={(e) => {
-                        patchChild(skill.id, child.id, { name: e.target.value });
-                      }}
-                      placeholder={t('skills.childPlaceholder')}
-                      className="min-w-0 flex-1 rounded-md border border-slate-300 bg-white px-2 py-1 text-sm shadow-sm focus:border-slate-500 focus:outline-none focus:ring-1 focus:ring-slate-500"
-                    />
-                    {displayMode !== 'none' && (
-                      <LevelInput
-                        displayMode={displayMode}
-                        value={child.level}
-                        onChange={(level) => {
-                          patchChild(skill.id, child.id, { level });
+                <SortableList
+                  items={skill.children}
+                  onReorder={(children) => {
+                    patch(skill.id, { children });
+                  }}
+                  className="flex flex-col gap-1.5"
+                >
+                  {(child) => (
+                    <SortableItem key={child.id} id={child.id} className="flex items-center gap-2">
+                      <DragHandle />
+                      <input
+                        type="text"
+                        value={child.name}
+                        onChange={(e) => {
+                          patchChild(skill.id, child.id, { name: e.target.value });
                         }}
-                        i18nPrefix="skills.level"
+                        placeholder={t('skills.childPlaceholder')}
+                        className="min-w-0 flex-1 rounded-md border border-slate-300 bg-white px-2 py-1 text-sm shadow-sm focus:border-slate-500 focus:outline-none focus:ring-1 focus:ring-slate-500"
                       />
-                    )}
-                    <button
-                      type="button"
-                      onClick={() => {
-                        removeChild(skill.id, child.id);
-                      }}
-                      className="shrink-0 rounded p-0.5 text-slate-400 transition-colors hover:text-red-500"
-                    >
-                      &times;
-                    </button>
-                  </div>
-                ))}
+                      {displayMode !== 'none' && (
+                        <LevelInput
+                          displayMode={displayMode}
+                          value={child.level}
+                          onChange={(level) => {
+                            patchChild(skill.id, child.id, { level });
+                          }}
+                          i18nPrefix="skills.level"
+                        />
+                      )}
+                      <button
+                        type="button"
+                        onClick={() => {
+                          removeChild(skill.id, child.id);
+                        }}
+                        className="shrink-0 rounded p-0.5 text-slate-400 transition-colors hover:text-red-500"
+                      >
+                        &times;
+                      </button>
+                    </SortableItem>
+                  )}
+                </SortableList>
                 <Button
                   variant="ghost"
                   size="sm"
@@ -206,9 +220,10 @@ export function SkillsForm({ slotName, componentId }: SlotFormProps) {
                   + {t('skills.addChild')}
                 </Button>
               </div>
-            </div>
+            </SortableItem>
           ) : (
-            <div key={skill.id} className="flex items-end gap-2">
+            <SortableItem key={skill.id} id={skill.id} className="flex items-end gap-2">
+              <DragHandle className="mb-2" />
               <div className="flex-1">
                 <Field
                   label={t('skills.name')}
@@ -241,10 +256,10 @@ export function SkillsForm({ slotName, componentId }: SlotFormProps) {
               >
                 {t('actions.remove')}
               </Button>
-            </div>
-          ),
-        )}
-      </div>
+            </SortableItem>
+          )
+        }
+      </SortableList>
     </div>
   );
 }

@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Field } from '../../../ui/Field.js';
 import { ListFormHeader } from '../../../ui/ListFormHeader.js';
 import { ListItemCard } from '../../../ui/ListItemCard.js';
+import { SortableList } from '../../../ui/SortableList.js';
 import { generateId } from '../../../utils/generateId.js';
 import { SECTION_BY_ID } from '../sectionConfig.js';
 import { useListSection } from '../useListSection.js';
@@ -23,7 +24,7 @@ const summarize = sectionDef?.summarize ?? (() => '');
 export function CertificatesForm(props: SlotFormProps) {
   void props;
   const { t } = useTranslation();
-  const { items, add, remove, patch } = useListSection<Certificate>(
+  const { items, add, remove, patch, reorder } = useListSection<Certificate>(
     'certificates',
     emptyCertificate,
   );
@@ -32,10 +33,11 @@ export function CertificatesForm(props: SlotFormProps) {
     <div className="flex flex-col gap-3">
       <ListFormHeader count={items.length} onAdd={add} />
 
-      <div className="flex flex-col">
-        {items.map((c) => (
+      <SortableList items={items} onReorder={reorder} className="flex flex-col">
+        {(c) => (
           <ListItemCard
             key={c.id}
+            id={c.id}
             summary={summarize(c as unknown as Record<string, unknown>, t)}
             defaultOpen={!c.name}
             onRemove={() => {
@@ -79,8 +81,8 @@ export function CertificatesForm(props: SlotFormProps) {
               </div>
             </div>
           </ListItemCard>
-        ))}
-      </div>
+        )}
+      </SortableList>
     </div>
   );
 }

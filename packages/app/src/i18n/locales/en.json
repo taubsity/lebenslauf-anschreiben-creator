@@ -17,7 +17,15 @@
     "clearAllConfirm": "All entered data (resume, cover letter, design settings) will be permanently deleted. This action cannot be undone.",
     "clearAllCancel": "Cancel",
     "add": "Add",
-    "remove": "Remove"
+    "remove": "Remove",
+    "dragToReorder": "Drag to reorder"
+  },
+  "dnd": {
+    "instructions": "To pick up an entry, press space or enter. Use the arrow keys to move it. Press space or enter again to drop it, or escape to cancel.",
+    "picked": "Picked up entry {{position}} of {{total}}.",
+    "movedOver": "Entry moved to position {{position}} of {{total}}.",
+    "dropped": "Entry dropped at position {{position}} of {{total}}.",
+    "cancelled": "Sorting cancelled. Entry returned to position {{position}} of {{total}}."
   },
   "basics": {
     "title": "Personal",

@@ -7,6 +7,7 @@ import { ListFormHeader } from '../../../ui/ListFormHeader.js';
 import { ListItemCard } from '../../../ui/ListItemCard.js';
 import { RichTextField } from '../../../ui/RichTextField.js';
 import { Select } from '../../../ui/Select.js';
+import { SortableList } from '../../../ui/SortableList.js';
 import { ToggleGroup } from '../../../ui/ToggleGroup.js';
 import { generateId } from '../../../utils/generateId.js';
 import { SECTION_BY_ID } from '../sectionConfig.js';
@@ -29,7 +30,7 @@ const summarize = sectionDef?.summarize ?? (() => '');
 
 export function PublicationsForm({ slotName, componentId }: SlotFormProps) {
   const { t } = useTranslation();
-  const { items, add, remove, patch } = useListSection<Publication>(
+  const { items, add, remove, patch, reorder } = useListSection<Publication>(
     'publications',
     emptyPublication,
   );
@@ -65,10 +66,11 @@ export function PublicationsForm({ slotName, componentId }: SlotFormProps) {
         />
       </div>
 
-      <div className="flex flex-col">
-        {items.map((p) => (
+      <SortableList items={items} onReorder={reorder} className="flex flex-col">
+        {(p) => (
           <ListItemCard
             key={p.id}
+            id={p.id}
             summary={summarize(p as unknown as Record<string, unknown>, t)}
             defaultOpen={!p.name}
             onRemove={() => {
@@ -128,8 +130,8 @@ export function PublicationsForm({ slotName, componentId }: SlotFormProps) {
               />
             </div>
           </ListItemCard>
-        ))}
-      </div>
+        )}
+      </SortableList>
     </div>
   );
 }

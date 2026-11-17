@@ -2,9 +2,12 @@ import type { SlotFormProps } from '../formRegistry.js';
 import type { Language } from '@cv/core';
 import { useTranslation } from 'react-i18next';
 import { Button } from '../../../ui/Button.js';
+import { DragHandle } from '../../../ui/DragHandle.js';
 import { Field } from '../../../ui/Field.js';
 import { ListFormHeader } from '../../../ui/ListFormHeader.js';
 import { Select } from '../../../ui/Select.js';
+import { SortableItem } from '../../../ui/SortableItem.js';
+import { SortableList } from '../../../ui/SortableList.js';
 import { generateId } from '../../../utils/generateId.js';
 import { useListSection } from '../useListSection.js';
 
@@ -21,7 +24,10 @@ function emptyLanguage(): Language {
 export function LanguagesForm(props: SlotFormProps) {
   void props;
   const { t } = useTranslation();
-  const { items, add, remove, patch } = useListSection<Language>('languages', emptyLanguage);
+  const { items, add, remove, patch, reorder } = useListSection<Language>(
+    'languages',
+    emptyLanguage,
+  );
 
   const fluencyOptions = FLUENCY_LEVELS.map((f) => ({
     value: f,
@@ -32,9 +38,10 @@ export function LanguagesForm(props: SlotFormProps) {
     <div className="flex flex-col gap-3">
       <ListFormHeader count={items.length} onAdd={add} />
 
-      <div className="flex flex-col gap-2">
-        {items.map((l) => (
-          <div key={l.id} className="flex items-end gap-2">
+      <SortableList items={items} onReorder={reorder} className="flex flex-col gap-2">
+        {(l) => (
+          <SortableItem key={l.id} id={l.id} className="flex items-end gap-2">
+            <DragHandle className="mb-2" />
             <div className="flex-1">
               <Field
                 label={t('languages.language')}
@@ -62,9 +69,9 @@ export function LanguagesForm(props: SlotFormProps) {
             >
               {t('actions.remove')}
             </Button>
-          </div>
-        ))}
-      </div>
+          </SortableItem>
+        )}
+      </SortableList>
     </div>
   );
 }

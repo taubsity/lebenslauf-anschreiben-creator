@@ -5,6 +5,7 @@ import { Field } from '../../../ui/Field.js';
 import { ListFormHeader } from '../../../ui/ListFormHeader.js';
 import { ListItemCard } from '../../../ui/ListItemCard.js';
 import { RichTextField } from '../../../ui/RichTextField.js';
+import { SortableList } from '../../../ui/SortableList.js';
 import { generateId } from '../../../utils/generateId.js';
 import { SECTION_BY_ID } from '../sectionConfig.js';
 import { useListSection } from '../useListSection.js';
@@ -27,16 +28,20 @@ const summarize = sectionDef?.summarize ?? (() => '');
 export function EducationForm(props: SlotFormProps) {
   void props;
   const { t } = useTranslation();
-  const { items, add, remove, patch } = useListSection<Education>('education', emptyEducation);
+  const { items, add, remove, patch, reorder } = useListSection<Education>(
+    'education',
+    emptyEducation,
+  );
 
   return (
     <div className="flex flex-col gap-3">
       <ListFormHeader count={items.length} onAdd={add} />
 
-      <div className="flex flex-col">
-        {items.map((e) => (
+      <SortableList items={items} onReorder={reorder} className="flex flex-col">
+        {(e) => (
           <ListItemCard
             key={e.id}
+            id={e.id}
             summary={summarize(e as unknown as Record<string, unknown>, t)}
             defaultOpen={!e.institution && !e.studyType}
             onRemove={() => {
@@ -110,8 +115,8 @@ export function EducationForm(props: SlotFormProps) {
               />
             </div>
           </ListItemCard>
-        ))}
-      </div>
+        )}
+      </SortableList>
     </div>
   );
 }
