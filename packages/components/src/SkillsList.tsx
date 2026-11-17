@@ -25,15 +25,15 @@ function getValue(level: number | undefined): number {
   return level / 100;
 }
 
-/**
- * Returns filled count as whole number (e.g. 70 → 4).
- * Rounded to nearest integer for clean rendering in PDF/print.
- * @param level
- * @returns Star count from 0 to 5, whole values only
- */
-function getStarCount(level: number | undefined): number {
-  if (level == null) return 3;
-  return Math.min(5, Math.round(level / 20)); // 70 → 4, 100 → 5, 40 → 2, 90 → 5
+type IconFill = 'full' | 'half' | 'empty';
+
+function iconFills(level: number | undefined): IconFill[] {
+  const count = Math.min(5, Math.round((level ?? 50) / 10) / 2);
+  return Array.from({ length: 5 }, (_, i) => {
+    if (i + 1 <= count) return 'full';
+    if (i + 0.5 <= count) return 'half';
+    return 'empty';
+  });
 }
 
 function LevelIndicator({
@@ -60,27 +60,22 @@ function LevelIndicator({
     }
     case 'stars':
     case 'dots': {
-      const count = getStarCount(level);
-      const filled = displayMode === 'stars' ? '\u2605' : '\u25CF';
-      const empty = displayMode === 'stars' ? '\u2606' : '\u25CB';
+      const full = displayMode === 'stars' ? '\u2605' : '\u25CF';
+      const empty = displayMode === 'stars' ? '\u2606' : '\u25CF';
       return (
-        <span className="cv-skill-visual-icons">
-          {Array.from({ length: 5 }, (_, i) => {
-            const pos = i + 1;
-            if (pos <= count) return <span key={i}>{filled}</span>;
-            if (pos - 0.5 <= count)
-              return (
-                <span key={i} className="cv-icon-half">
-                  <span className="cv-icon-half-filled">{filled}</span>
-                  <span className="cv-icon-half-empty">{empty}</span>
-                </span>
-              );
-            return (
-              <span key={i} className="cv-empty">
+        <span className={`cv-skill-visual-icons cv-skill-visual-icons--${displayMode}`}>
+          {iconFills(level).map((fill, i) =>
+            fill === 'half' ? (
+              <span key={i} className="cv-icon cv-icon--half">
+                <span className="cv-icon-half-filled">{full}</span>
                 {empty}
               </span>
-            );
-          })}
+            ) : (
+              <span key={i} className={`cv-icon cv-icon--${fill}`}>
+                {fill === 'full' ? full : empty}
+              </span>
+            ),
+          )}
         </span>
       );
     }
