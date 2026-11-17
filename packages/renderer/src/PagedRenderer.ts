@@ -1,3 +1,4 @@
+import { registerBreakAfterAvoid } from './breakAfterAvoid.js';
 import { PRINT_ROOT_ATTRIBUTE } from './print.js';
 
 /**
@@ -125,6 +126,7 @@ export class PagedRenderer {
       };
     </script>
     <script src="${this.options.pagedPolyfillUrl}"></script>
+    <script>(${registerBreakAfterAvoid.toString()})(window.Paged);</script>
   </head>
   <body>${bodyHTML}</body>
 </html>`;
