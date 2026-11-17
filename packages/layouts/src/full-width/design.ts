@@ -89,5 +89,8 @@ export const fullWidthDesign = defineDesign({
   display: flex;
   flex-direction: column;
   gap: var(--cv-spacing-gap);
+}
+.cv-slot-main[data-split-from] {
+  padding-top: 14mm !important;
 }`,
 });

@@ -128,29 +128,42 @@ export const sidebarLeftDesign = defineDesign({
 
   css: (opts) => {
     const position = (opts['sidebar.position'] as string | undefined) ?? 'left';
-    const columns = position === 'right' ? '1fr 70mm' : '70mm 1fr';
-    const sidebarOrder = position === 'right' ? 'order: 2;' : '';
-    const mainOrder = position === 'right' ? 'order: 1;' : '';
-
+    const right = position === 'right';
+    const columns = right ? '1fr 70mm' : '70mm 1fr';
+    const sidebarColumn = right ? 2 : 1;
+    const mainColumn = right ? 1 : 2;
+    const sidebarStripe = right
+      ? 'linear-gradient(to left, var(--cv-sidebar-bg) 70mm, var(--cv-background) 70mm)'
+      : 'linear-gradient(to right, var(--cv-sidebar-bg) 70mm, var(--cv-background) 70mm)';
     return `
 .cv-page {
   display: grid;
   grid-template-columns: ${columns};
+  background: ${sidebarStripe};
 }
 .cv-slot-sidebar {
+  grid-row: 1;
+  grid-column: ${sidebarColumn};
   background: var(--cv-sidebar-bg);
   padding: 10mm 10mm 14mm;
   display: flex;
   flex-direction: column;
   gap: var(--cv-spacing-gap);
-  ${sidebarOrder}
 }
 .cv-slot-main {
+  grid-row: 1;
+  grid-column: ${mainColumn};
   padding: 14mm 12mm;
   display: flex;
   flex-direction: column;
   gap: var(--cv-spacing-gap);
-  ${mainOrder}
+}
+/* Paged.js strips padding-top from continued parts; restore the top margin */
+.cv-slot-sidebar[data-split-from] {
+  padding-top: 10mm !important;
+}
+.cv-slot-main[data-split-from] {
+  padding-top: 14mm !important;
 }`;
   },
 });

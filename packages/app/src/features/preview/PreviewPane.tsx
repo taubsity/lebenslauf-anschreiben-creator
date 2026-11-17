@@ -21,7 +21,7 @@ export function PreviewPane() {
   const overrides = useDesignStore((s) => s.overrides);
   const activeDocumentType = useDesignStore((s) => s.activeDocumentType);
 
-  const { hostRef, pageCount, generating } = usePagedPreview({
+  const { hostRef, pageCount, sidebarOverflow, generating } = usePagedPreview({
     resume,
     coverLetter,
     design,
@@ -78,9 +78,17 @@ export function PreviewPane() {
     <div className="flex h-full flex-col">
       {/* Toolbar: page count + zoom controls + rendering status */}
       <div className="flex shrink-0 items-center justify-between bg-slate-100 px-3 py-1.5">
-        <span className="text-xs text-slate-500">
+        <span className="flex items-center gap-2 text-xs text-slate-500">
           {pageCount > 0 &&
             `${pageCount} ${pageCount === 1 ? t('preview.page') : t('preview.pages')}`}
+          {sidebarOverflow && (
+            <span
+              className="rounded border border-amber-200 bg-amber-50 px-1.5 py-0.5 font-medium text-amber-700"
+              title={t('preview.sidebarOverflowHint')}
+            >
+              {t('preview.sidebarOverflow')}
+            </span>
+          )}
         </span>
 
         <div className="flex items-center gap-1">

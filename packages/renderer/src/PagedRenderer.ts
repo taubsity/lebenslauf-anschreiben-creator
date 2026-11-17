@@ -12,6 +12,7 @@ export interface PagedRendererOptions {
  */
 export interface RenderResult {
   pageCount: number;
+  sidebarOverflow: boolean;
 }
 
 /**
@@ -66,12 +67,15 @@ export class PagedRenderer {
       );
     });
 
-    if (seq !== this.renderSeq) return { pageCount: 0 };
+    if (seq !== this.renderSeq) return { pageCount: 0, sidebarOverflow: false };
 
-    // Give Paged.js an extra tick to finish pagination
-    await new Promise((r) => setTimeout(r, 100));
+    await waitForPagination(iframe);
+
+    if (seq !== this.renderSeq) return { pageCount: 0, sidebarOverflow: false };
 
     const pageCount = iframe.contentDocument?.querySelectorAll('.pagedjs_page').length ?? 0;
+    const sidebarOverflow =
+      iframe.contentDocument?.querySelector('.cv-slot-sidebar[data-split-from]') != null;
 
     // Resize iframe to fit the actual content so the parent can scroll naturally
     const contentHeight = iframe.contentDocument?.documentElement.scrollHeight;
@@ -79,7 +83,7 @@ export class PagedRenderer {
       iframe.style.height = `${contentHeight}px`;
     }
 
-    return { pageCount };
+    return { pageCount, sidebarOverflow };
   }
 
   /**
@@ -111,11 +115,38 @@ export class PagedRenderer {
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap" />
     <style>${stylesheet}</style>
     <style>${PAGEDJS_INTERFACE_CSS}</style>
+    <script>
+      window.PagedConfig = {
+        auto: true,
+        after: function () {
+          window.${PAGINATION_DONE_FLAG} = true;
+          window.dispatchEvent(new Event('${PAGINATION_DONE_EVENT}'));
+        },
+      };
+    </script>
     <script src="${this.options.pagedPolyfillUrl}"></script>
   </head>
   <body>${bodyHTML}</body>
 </html>`;
   }
+}
+
+const PAGINATION_DONE_FLAG = '__cvPaginationDone';
+const PAGINATION_DONE_EVENT = 'cv-pagination-done';
+const PAGINATION_TIMEOUT_MS = 10_000;
+
+function waitForPagination(iframe: HTMLIFrameElement): Promise<void> {
+  const win = iframe.contentWindow as (Window & Record<string, unknown>) | null;
+  if (!win || win[PAGINATION_DONE_FLAG] === true) return Promise.resolve();
+  return new Promise((resolve) => {
+    const done = () => {
+      window.clearTimeout(timer);
+      win.removeEventListener(PAGINATION_DONE_EVENT, done);
+      resolve();
+    };
+    const timer = window.setTimeout(done, PAGINATION_TIMEOUT_MS);
+    win.addEventListener(PAGINATION_DONE_EVENT, done);
+  });
 }
 
 const PAGEDJS_INTERFACE_CSS = `
