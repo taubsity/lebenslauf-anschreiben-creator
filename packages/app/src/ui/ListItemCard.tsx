@@ -1,7 +1,10 @@
 import { type ReactNode, useState } from 'react';
 import { Collapsible } from './Collapsible.js';
+import { DragHandle } from './DragHandle.js';
+import { SortableItem } from './SortableItem.js';
 
 interface ListItemCardProps {
+  id: string;
   summary: string;
   defaultOpen?: boolean;
   onRemove: () => void;
@@ -9,6 +12,7 @@ interface ListItemCardProps {
 }
 
 export function ListItemCard({
+  id,
   summary,
   defaultOpen = false,
   onRemove,
@@ -18,6 +22,7 @@ export function ListItemCard({
 
   const header = (
     <div className="flex items-center gap-2 py-3">
+      <DragHandle />
       <svg
         className={`h-4 w-4 shrink-0 text-slate-400 transition-transform duration-200 ${open ? 'rotate-90' : ''}`}
         viewBox="0 0 16 16"
@@ -54,7 +59,7 @@ export function ListItemCard({
   );
 
   return (
-    <div className="border-b border-slate-200 last:border-b-0">
+    <SortableItem id={id} className="border-b border-slate-200 last:border-b-0">
       <Collapsible
         open={open}
         onToggle={() => {
@@ -62,8 +67,8 @@ export function ListItemCard({
         }}
         header={header}
       >
-        <div className="pb-3 pl-6">{children}</div>
+        <div className="pb-3 pl-12">{children}</div>
       </Collapsible>
-    </div>
+    </SortableItem>
   );
 }

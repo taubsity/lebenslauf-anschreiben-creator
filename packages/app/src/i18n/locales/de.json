@@ -17,7 +17,15 @@
     "clearAllConfirm": "Alle eingegebenen Daten (Lebenslauf, Anschreiben, Design-Einstellungen) werden unwiderruflich gelöscht. Diese Aktion kann nicht rückgängig gemacht werden.",
     "clearAllCancel": "Abbrechen",
     "add": "Hinzufügen",
-    "remove": "Entfernen"
+    "remove": "Entfernen",
+    "dragToReorder": "Zum Sortieren ziehen"
+  },
+  "dnd": {
+    "instructions": "Drücke Leertaste oder Enter, um einen Eintrag aufzunehmen. Verschiebe ihn mit den Pfeiltasten. Drücke erneut Leertaste oder Enter, um ihn abzulegen, oder Escape zum Abbrechen.",
+    "picked": "Eintrag {{position}} von {{total}} aufgenommen.",
+    "movedOver": "Eintrag auf Position {{position}} von {{total}} verschoben.",
+    "dropped": "Eintrag auf Position {{position}} von {{total}} abgelegt.",
+    "cancelled": "Sortieren abgebrochen. Eintrag zurück auf Position {{position}} von {{total}}."
   },
   "basics": {
     "title": "Persönliche Daten",

@@ -3,8 +3,11 @@ import type { CustomSection } from '@cv/core';
 import { useTranslation } from 'react-i18next';
 import { useResumeStore } from '../../../state/resumeStore.js';
 import { Button } from '../../../ui/Button.js';
+import { DragHandle } from '../../../ui/DragHandle.js';
 import { Field } from '../../../ui/Field.js';
 import { RichTextField } from '../../../ui/RichTextField.js';
+import { SortableItem } from '../../../ui/SortableItem.js';
+import { SortableList } from '../../../ui/SortableList.js';
 import { generateId } from '../../../utils/generateId.js';
 
 function emptySection(): CustomSection {
@@ -62,77 +65,94 @@ export function CustomSectionForm(props: SlotFormProps) {
 
   return (
     <div className="flex flex-col gap-3">
-      {resume.custom.map((section) => (
-        <div
-          key={section.id}
-          className="flex flex-col gap-2 rounded-md border border-slate-200 bg-slate-50/50 p-3"
-        >
-          <div className="flex items-end gap-2">
-            <div className="flex-1">
-              <Field
-                label={t('custom.sectionTitle')}
-                value={section.title}
-                onChange={(e) => {
-                  patchSection(section.id, { title: e.target.value });
+      <SortableList items={resume.custom} onReorder={update} className="flex flex-col gap-3">
+        {(section) => (
+          <SortableItem
+            key={section.id}
+            id={section.id}
+            className="flex flex-col gap-2 rounded-md border border-slate-200 bg-slate-50/50 p-3"
+          >
+            <div className="flex items-end gap-2">
+              <DragHandle className="mb-2" />
+              <div className="flex-1">
+                <Field
+                  label={t('custom.sectionTitle')}
+                  value={section.title}
+                  onChange={(e) => {
+                    patchSection(section.id, { title: e.target.value });
+                  }}
+                />
+              </div>
+              <Button
+                variant="danger"
+                size="sm"
+                className="mb-1"
+                onClick={() => {
+                  removeSection(section.id);
                 }}
-              />
+              >
+                {t('actions.remove')}
+              </Button>
             </div>
-            <Button
-              variant="danger"
-              size="sm"
-              className="mb-1"
-              onClick={() => {
-                removeSection(section.id);
-              }}
-            >
-              {t('actions.remove')}
-            </Button>
-          </div>
 
-          {section.items.map((item) => (
-            <div key={item.id} className="flex flex-col gap-2 border-l-2 border-slate-200 pl-3">
-              <div className="flex items-end gap-2">
-                <div className="flex-1">
-                  <Field
-                    label={t('custom.itemHeading')}
-                    value={item.heading ?? ''}
-                    onChange={(e) => {
-                      patchItem(section.id, item.id, { heading: e.target.value });
+            <SortableList
+              items={section.items}
+              onReorder={(items) => {
+                patchSection(section.id, { items });
+              }}
+              className="flex flex-col gap-2"
+            >
+              {(item) => (
+                <SortableItem
+                  key={item.id}
+                  id={item.id}
+                  className="flex flex-col gap-2 border-l-2 border-slate-200 pl-3"
+                >
+                  <div className="flex items-end gap-2">
+                    <DragHandle className="mb-2" />
+                    <div className="flex-1">
+                      <Field
+                        label={t('custom.itemHeading')}
+                        value={item.heading ?? ''}
+                        onChange={(e) => {
+                          patchItem(section.id, item.id, { heading: e.target.value });
+                        }}
+                      />
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        removeItem(section.id, item.id);
+                      }}
+                      className="mb-1 shrink-0 rounded p-0.5 text-slate-400 transition-colors hover:text-red-500"
+                    >
+                      &times;
+                    </button>
+                  </div>
+                  <RichTextField
+                    label={t('custom.itemBody')}
+                    value={item.body}
+                    onChange={(html) => {
+                      patchItem(section.id, item.id, { body: html });
                     }}
                   />
-                </div>
-                <button
-                  type="button"
-                  onClick={() => {
-                    removeItem(section.id, item.id);
-                  }}
-                  className="mb-1 shrink-0 rounded p-0.5 text-slate-400 transition-colors hover:text-red-500"
-                >
-                  &times;
-                </button>
-              </div>
-              <RichTextField
-                label={t('custom.itemBody')}
-                value={item.body}
-                onChange={(html) => {
-                  patchItem(section.id, item.id, { body: html });
-                }}
-              />
-            </div>
-          ))}
+                </SortableItem>
+              )}
+            </SortableList>
 
-          <Button
-            variant="ghost"
-            size="sm"
-            className="self-start"
-            onClick={() => {
-              addItem(section.id);
-            }}
-          >
-            + {t('custom.addItem')}
-          </Button>
-        </div>
-      ))}
+            <Button
+              variant="ghost"
+              size="sm"
+              className="self-start"
+              onClick={() => {
+                addItem(section.id);
+              }}
+            >
+              + {t('custom.addItem')}
+            </Button>
+          </SortableItem>
+        )}
+      </SortableList>
 
       <Button variant="secondary" size="sm" className="self-start" onClick={addSection}>
         + {t('custom.addSection')}

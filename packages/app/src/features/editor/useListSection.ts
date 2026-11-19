@@ -46,5 +46,5 @@ export function useListSection<T extends { id: string }>(key: ArrayKeys, emptyIt
     }
   }, [items.length, add]);
 
-  return { items, add, remove, patch };
+  return { items, add, remove, patch, reorder: set };
 }
