@@ -467,22 +467,24 @@ a.cv-entry-url {
   color: var(--cv-primary);
   font-size: 9pt;
 }
-.cv-skill-visual-icons .cv-empty {
+.cv-icon--empty,
+.cv-icon--half {
   color: var(--cv-border);
 }
-.cv-skill-visual-icons .cv-icon-half {
+.cv-icon--half {
   position: relative;
-  display: inline-block;
 }
-.cv-skill-visual-icons .cv-icon-half-filled {
+.cv-icon-half-filled {
   position: absolute;
-  left: 0;
-  top: 0;
+  inset: 0 50% 0 0;
   overflow: hidden;
-  width: 50%;
+  color: var(--cv-primary);
+  -webkit-text-stroke: 0;
 }
-.cv-skill-visual-icons .cv-icon-half-empty {
-  color: var(--cv-border);
+.cv-skill-visual-icons--dots .cv-icon--empty,
+.cv-skill-visual-icons--dots .cv-icon--half {
+  color: transparent;
+  -webkit-text-stroke: 0.6pt var(--cv-border);
 }
 
 /* --- Skill groups (sidebar — tight, minimal) --- */
